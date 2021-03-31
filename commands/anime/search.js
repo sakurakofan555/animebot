@@ -2,8 +2,8 @@ const fetch = require('node-fetch')
 const Discord = require('discord.js')
 
 module.exports = {
-    name: "anime",
-    description: "returns detailed results on the first entry on MyAnimeList for the term provided",
+    name: "search",
+    description: "search for an anime",
     cooldown: 5,
     args: true,
     async execute(message, args) {
@@ -16,9 +16,13 @@ module.exports = {
         const { results } = await fetch(`https://api.jikan.moe/v3/search/anime?q=${args}`).then(response => response.json());  
         
         const embed = new Discord.MessageEmbed()
-            .setTitle(`MyAnimeList Top Result For ${args}`)
+            .setTitle(`First Five MyAnimeList Search Results For ${args}`)
             .setDescription(`[${results[0].title}](${results[0].url})\n**Rating**: ${results[0].score}/10\n**Episodes**: ${results[0].episodes}\n**Type**: ${results[0].type}
-            \n**Synopsis**: ${results[0].synopsis}\n**Originally Aired**: ${results[0].start_date}`)
+            \n[${results[1].title}](${results[1].url})\n**Rating**: ${results[1].score}/10\n**Episodes**: ${results[1].episodes}\n**Type**: ${results[1].type}
+            \n[${results[2].title}](${results[2].url})\n**Rating**: ${results[2].score}/10\n**Episodes**: ${results[2].episodes}\n**Type**: ${results[2].type}
+            \n[${results[3].title}](${results[3].url})\n**Rating**: ${results[3].score}/10\n**Episodes**: ${results[3].episodes}\n**Type**: ${results[3].type}
+            \n[${results[4].title}](${results[4].url})\n**Rating**: ${results[4].score}/10\n**Episodes**: ${results[4].episodes}\n**Type**: ${results[4].type}
+            \n`)
             .setThumbnail(results[0].image_url)
 
         message.channel.send(embed);
